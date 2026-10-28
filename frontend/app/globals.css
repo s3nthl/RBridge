@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+/*
+ * RBridge design tokens.
+ * Light: warm paper, ink, bridge orange. Dark: graphite, warm white, ember.
+ * Components use the Tailwind names mapped in @theme below
+ * (bg-paper, bg-surface, text-ink, text-ink-2, border-line, bg-accent, …).
+ */
+
+:root {
+  --paper:        #F4F1EA;
+  --surface:      #FBFAF6;
+  --sunken:       #ECE8DF;
+  --line:         #DCD6C9;
+  --line-strong:  #C4BCAB;
+
+  --ink:          #14181F;
+  --ink-2:        #4A505B;
+  --ink-3:        #8A8F98;
+
+  /* Bridge orange: the brand accent and "relief" colour */
+  --accent:       #C2412D;
+  --accent-hover: #A93725;
+  --accent-ink:   #FFFFFF;
+  --accent-soft:  #F6E1DB;
+
+  /* Steel blue: the second lien, balances, secondary data */
+  --steel:        #1F4A66;
+  --steel-soft:   #DCE6EC;
+
+  --good:         #2F6B4F;
+  --good-soft:    #DCEBE2;
+  --warn:         #A8641B;
+  --warn-soft:    #F5E7D3;
+  --bad:          #B3261E;
+  --bad-soft:     #F6DAD7;
+
+  --shadow-card:  0 1px 2px rgba(20, 24, 31, 0.04), 0 8px 24px -12px rgba(20, 24, 31, 0.12);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:        #0F1216;
+    --surface:      #161A20;
+    --sunken:       #1C2128;
+    --line:         #2A3038;
+    --line-strong:  #3A424C;
+    --ink:          #EEF0F2;
+    --ink-2:        #A3A9B2;
+    --ink-3:        #6B717A;
+    --accent:       #E2583F;
+    --accent-hover: #EE6B53;
+    --accent-ink:   #FFFFFF;
+    --accent-soft:  #3A1E18;
+    --steel:        #8FB3CC;
+    --steel-soft:   #1B2833;
+    --good:         #6FBF94;
+    --good-soft:    #15281E;
+    --warn:         #E0A35A;
+    --warn-soft:    #2E2215;
+    --bad:          #F07A70;
+    --bad-soft:     #331817;
+    --shadow-card:  0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.5);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper:        #0F1216;
+  --surface:      #161A20;
+  --sunken:       #1C2128;
+  --line:         #2A3038;
+  --line-strong:  #3A424C;
+  --ink:          #EEF0F2;
+  --ink-2:        #A3A9B2;
+  --ink-3:        #6B717A;
+  --accent:       #E2583F;
+  --accent-hover: #EE6B53;
+  --accent-ink:   #FFFFFF;
+  --accent-soft:  #3A1E18;
+  --steel:        #8FB3CC;
+  --steel-soft:   #1B2833;
+  --good:         #6FBF94;
+  --good-soft:    #15281E;
+  --warn:         #E0A35A;
+  --warn-soft:    #2E2215;
+  --bad:          #F07A70;
+  --bad-soft:     #331817;
+  --shadow-card:  0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.5);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-sunken: var(--sunken);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-steel: var(--steel);
+  --color-steel-soft: var(--steel-soft);
+  --color-good: var(--good);
+  --color-good-soft: var(--good-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-serif), ui-serif, Georgia, serif;
+  --font-mono: var(--font-numeric), ui-monospace, SFMono-Regular, monospace;
+
+  --shadow-card: var(--shadow-card);
+}
+
+html {
+  background: var(--paper);
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Every figure lines up in tables and stat blocks. */
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── Motion ──────────────────────────────────────────────────── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.rise { animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@keyframes draw {
+  from { stroke-dashoffset: var(--path-length, 1000); }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 0.25; transform: scale(0.8); }
+  50%      { opacity: 1;    transform: scale(1); }
+}
+.dot-pulse { animation: dot-pulse 1.4s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Chat message typography ─────────────────────────────────── */
+.chat-prose p { margin-bottom: 0.75rem; line-height: 1.7; }
+.chat-prose p:last-child { margin-bottom: 0; }
+.chat-prose ul { margin: 0 0 0.75rem; padding-left: 1.25rem; list-style: disc; line-height: 1.7; }
+.chat-prose ul:last-child { margin-bottom: 0; }
