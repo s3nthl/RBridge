@@ -18,9 +18,14 @@ async function handler(req: NextRequest, { params }: { params: Promise<{ path: s
     duplex: 'half',
   } as RequestInit)
 
+  // fetch already decompressed the body, so the upstream encoding/length headers no longer
+  // describe it. Forwarding them makes browsers fail to decode gzipped Railway responses.
+  const outHeaders = new Headers(res.headers)
+  for (const h of ['content-encoding', 'content-length', 'transfer-encoding']) outHeaders.delete(h)
+
   const out = new NextResponse(res.body, {
     status: res.status,
-    headers: res.headers,
+    headers: outHeaders,
   })
   return out
 }
