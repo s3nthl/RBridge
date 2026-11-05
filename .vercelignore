@@ -1,0 +1,6 @@
+backend/
+**/node_modules
+**/.next
+**/.env.local
+**/test-results
+**/playwright-report
